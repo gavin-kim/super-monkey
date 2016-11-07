@@ -1,2 +1,2 @@
 # super-monkey
-A shooting game
+A shooting game made by JavaScript
