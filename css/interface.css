@@ -1,0 +1,319 @@
+#fog {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+#dialog, #menu {
+    position: absolute;
+    opacity: 0.9;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+
+}
+
+#dialog {
+    background-color: #000000;
+    color: deeppink;
+    border: 3px outset deeppink;
+    width: 40%;
+    top: 30%;
+    left: 30%;
+    z-index: 2;
+}
+
+#dialog-message {
+    text-align: center;
+}
+
+#menu {
+    background-color: rgba(0, 1, 15, 0.9);
+    color: gold;
+    border: 3px outset indigo;
+    width: 60%;
+    top: 20%;
+    left: 20%;
+    z-index: 1;
+}
+
+#menu-title {
+    background-color: rgba(0, 1, 15, 0.9);
+    width: 20%;
+    height: 36px;
+    margin: -18px auto 0;
+    border: 3px solid indigo;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#key-info-container {
+    background-color: rgba(0, 1, 15, 0.9);
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 3px inset indigo;
+}
+
+#key-info {
+    background-image: url(../img/interface/key_info.png);
+    width: 300px;
+    height: 150px;
+}
+
+#dialog-btn-container, #menu-btn-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-btn, .dialog-btn {
+    font-size: 20px;
+    font-weight: bold;
+    width: 120px;
+    height: 36px;
+    border-radius: 10px;
+    margin: 10px 10px 10px;
+}
+
+.menu-btn {
+    background-color: #000000;
+    color: gold;
+    border: 3px outset indigo;
+}
+
+.dialog-btn {
+    background-color: deeppink;
+    color: black;
+    border: 3px outset deeppink;
+}
+
+.menu-btn:hover {
+    background-color: gold;
+    color: black;
+    opacity: 0.6;
+}
+
+.dialog-btn:hover {
+    background-color: #000000;
+    color: deeppink;
+    opacity: 0.6;
+}
+
+#status {
+    color: whitesmoke;
+    position: absolute;
+    opacity: 0.8;
+    width: 100%;
+    top: 90%;
+    font-size: 10px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-hp-label, .status-sp-label {
+    font-size: 14px;
+}
+
+.status-hp, .status-sp, .status-weapon, .status-skill, .status-money{
+    display: inline-block;
+    position: relative;
+}
+
+.status-hp-label, .status-sp-label, .status-weapon-icon, .status-icon {
+    margin-left: 10px;
+}
+
+.status-weapon, .status-skill {
+    width: 80px;
+    margin-left: -12px;
+}
+
+.status-hp, .status-sp {
+    background-color: darkgrey;
+    border: 2px solid black;
+    border-radius: 3px;
+    width: 120px;
+    height: 20px;
+    z-index: 0;
+    text-align: center;
+}
+
+
+.status-hp-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.status-sp-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+    background-color: yellow;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.status-hp-value, .status-sp-value {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    color: black;
+    font-size: 12px;
+    z-index: 2;
+}
+
+
+.status-weapon-label, .status-skill-label {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.status-weapon-value, .status-skill-value {
+    position: absolute;
+    right: 5px;
+}
+
+
+.status-weapon-level, .status-skill-level {
+    position: relative;
+    height: 10px;
+    background-color: darkgrey;
+    border: 2px solid black;
+    border-radius: 3px;
+    z-index: 0;
+}
+
+.status-weapon-level-bar, .status-skill-level-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+    background-color: lawngreen;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.status-money-value {
+    position: relative;
+    color: gold;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.status-icon {
+    width: 48px;
+    height: 48px;
+    transform: scale(0.5);
+}
+
+.icon-money {
+    background-image: url(../img/interface/coin.png);
+    width: 24px;
+    height: 24px;
+}
+
+.icon-basic {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: 0;
+}
+
+.icon-bomb {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -48px;
+}
+
+.icon-launcher {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -96px;
+}
+
+.icon-mirror-image {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -144px;
+}
+
+.icon-blast {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -192px;
+}
+
+.icon-energy-ball {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -240px;
+}
+
+.icon-lock {
+    background-image: url(../img/interface/skill.png);
+    background-position-y: -48px;
+    background-position-x: 0;
+}
+
+.icon-plus:before {
+    content: "+";
+}
+
+.icon-plus {
+    background-color: black;
+    color: deeppink;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+}
+
+.icon-minus {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -96px;
+    background-position-y: -48px;
+}
+
+.icon-controller {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -144px;
+    background-position-y: -48px;
+}
+
+.icon-music {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -192px;
+    background-position-y: -48px;
+}
+
+.icon-sound {
+    background-image: url(../img/interface/skill.png);
+    background-position-x: -240px;
+    background-position-y: -48px;
+}
+.icon-super-monkey {
+    background-image: url(../img/interface/super_monkey.png);
+}
+
+.icon-ninja-monkey {
+    background-image: url(../img/interface/ninja_monkey.png);
+}
+.icon-character-lock {
+    background-image: url(../img/interface/icon-character-lock.png);
+}

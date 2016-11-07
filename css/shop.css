@@ -1,0 +1,165 @@
+#shop {
+    background-image: url(../img/background/shop.jpg);
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+    display: none;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#shop-header, #shop-footer {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    text-align: center;
+    font-size: 21px;
+}
+
+#character-container, #shop-container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+}
+
+#shop-container, #shop-info {
+    display: none;
+}
+
+#shop-player-money {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    text-align: right;
+    color: gold;
+}
+
+.character {
+    width: 192px;
+    height: 192px;
+    opacity: 0.5;
+}
+
+.character-selected {
+    opacity: 1.0;
+}
+
+.character:hover {
+    opacity: 0.7;
+}
+
+.shop-section {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 45%;
+    height: 95%;
+    margin: 0 auto;
+}
+
+.shop-item {
+    background-color: deeppink;
+    position: relative;
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    height: 48px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.upgrade {
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.upgrade-cost {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    font-size: 12px;
+    color: gold;
+}
+
+.upgrade-level {
+    position: absolute;
+    background-color: darkgrey;
+    width: 100%;
+    height: 60%;
+    top: 40%;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+#upgrade-weapon-level-bar, #upgrade-charge-level-bar, #upgrade-skill-level-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: greenyellow;
+}
+
+#upgrade-weapon-level-value, #upgrade-charge-level-value, #upgrade-skill-level-value {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.icon-clickable, .shop-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.icon-clickable:hover {
+    box-shadow: 0 0 2px 2px rgba(255, 207, 0, 0.5);
+    background-color: rgba(255, 207, 0, 0.5);
+}
+
+.item-disabled {
+    background: red;
+    opacity: 0.5;
+}
+
+.item-enabled:hover {
+    box-shadow: 0 0 3px 3px gold;
+}
+.item-selected {
+    box-shadow: 0 0 3px 3px gold;
+}
+
+#shop-item-list {
+    width: 100%;
+    height: 100%;
+}
+
+.shop-item-name {
+    align-self: center;
+    flex-grow: 3;
+}
+.shop-item-cost {
+    align-self: center;
+    color: gold;
+    text-align: right;
+    flex-grow: 1;
+}
+
+#shop-btn-equip {
+
+}
+
+
+

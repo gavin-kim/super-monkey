@@ -1,0 +1,121 @@
+.clone
+{
+    opacity: 0.5;
+}
+body, html
+{
+    margin: 0;
+    padding: 0;
+}
+
+
+#stage
+{
+    background-image: url(../img/background/background.png);
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: -1;
+}
+.unit {
+    position: absolute;
+}
+
+.skill {
+    position: absolute;
+}
+
+.player {
+
+}
+.enemy {
+
+}
+
+.enemy-missile {
+
+}
+
+.player-missile {
+
+}
+
+
+.charging {
+    position: absolute;
+    background-image: url(../img/global/charging.png);
+}
+
+.charged {
+    position: absolute;
+    background-image: url(../img/global/charged.png);
+}
+
+.super-monkey {
+    background-image: url(../img/super/super_monkey.png);
+}
+
+.ninja-monkey {
+    background-image: url(../img/ninja/ninja_monkey.png);
+}
+
+.enemy-missile {
+    background-image: url(../img/enemy/missile.png);
+}
+
+.basic-weapon-s {
+    background-image: url(../img/enemy/basic.png);
+}
+.basic-weapon-n {
+    background-image: url(../img/ninja/basic.png);
+}
+.bomb-missile-s {
+    background-image: url(../img/super/bomb_missile.png);
+}
+.bomb-missile-n {
+    background-image: url(../img/ninja/bomb_missile.png);
+}
+.bomb-explosion-s {
+    background-image: url(../img/super/bomb_explosion.png);
+}
+.bomb-explosion-n {
+    background-image: url(../img/ninja/bomb_explosion.png);
+}
+
+.launcher-missile-s {
+    background-image: url(../img/super/launcher_missile.png);
+}
+.launcher-missile-n {
+    background-image: url(../img/ninja/launcher_missile.png);
+}
+.launcher-shot-s {
+    background-image: url(../img/super/launcher_shot.png);
+}
+.launcher-shot-n {
+    background-image: url(../img/ninja/launcher_shot.png);
+}
+
+.laser {
+    background-image: url(../img/super/laser.png);
+}
+
+.tornado {
+    background-image: url(../img/ninja/tornado.png);
+}
+
+.energy-ball{
+    opacity: 0.8;
+}
+
+.mirror-image-smoke {
+    background-image: url(../img/ninja/mirror_image_smoke.png);
+    opacity: 0.8;
+}
+
+.dragon-s {
+    background-image: url(../img/super/dragon.png);
+}
+
+.dragon-n {
+    background-image: url(../img/ninja/dragon.png);
+}

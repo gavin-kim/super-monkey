@@ -1,0 +1,7 @@
+
+
+.slime-blue, .slime-red, .slime-green, .slime-yellow,
+.slime-black, .slime-pink, .slime-purple, .slime-orange {
+    background-image: url(../img/enemy/slime.png);
+    position: absolute;
+}

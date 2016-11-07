@@ -1,0 +1,140 @@
+
+
+<link rel="stylesheet" href="css/super-monkey.css">
+<link rel="stylesheet" href="css/frame.css">
+<link rel="stylesheet" href="css/interface.css">
+<link rel="stylesheet" href="css/shop.css">
+
+<div id="stage">
+  <div id="status">
+    <div class="status-hp-label">HP</div>
+    <div class="status-hp">
+      <div class="status-hp-value"></div>
+      <span class="status-hp-bar"></span>
+    </div>
+
+    <div class="status-sp-label">SP</div>
+    <div class="status-sp">
+      <div class="status-sp-value"></div>
+      <span class="status-sp-bar"></span>
+    </div>
+
+    <div class="status-icon" id="status-weapon-icon"></div>
+    <div class="status-weapon">
+      <div class="status-weapon-label">
+        Weapon<span class="status-weapon-value"></span>
+      </div>
+      <div class="status-weapon-level">
+        <span class="status-weapon-level-bar"></span>
+      </div>
+    </div>
+
+    <div class="status-icon" id="status-skill-icon"></div>
+    <div class="status-skill">
+      <div class="status-skill-label">
+        Skill<span class="status-skill-value"></span>
+      </div>
+      <div class="status-skill-level">
+        <span class="status-skill-level-bar"></span>
+      </div>
+    </div>
+
+    <div class="icon-money"></div>
+    <div class="status-money">
+      <div class="status-money-value"></div>
+    </div>
+  </div>
+
+  <div id="menu">
+    <div id='menu-title'>Menu</div>
+    <div id='key-info-container'><div id='key-info'></div></div>
+    <div id="menu-btn-container">
+      <button id="btn-resume" class="menu-btn" type="button">Resume</button>
+      <button id="btn-exit" class="menu-btn" type="button">Exit</button>
+    </div>
+  </div>
+
+  <div id="fog"></div>
+
+  <div id="dialog">
+    <div id="dialog-message"></div>
+    <div id="dialog-btn-container"></div>
+  </div>
+
+  <div id="shop">
+    <div id="shop-header">
+      <div id="shop-header-icon"></div>
+      <div id="shop-header-title">Choose a character</div>
+    </div>
+
+    <div id="character-container">
+      <div id="character-super" class="icon-super-monkey character"></div>
+      <div id="character-ninja" class="icon-ninja-monkey character"></div>
+    </div>
+
+    <div id="shop-container">
+      <div class="shop-section">
+        <div class="shop-item">
+          <div id="upgrade-weapon-icon" class="icon-clickable"></div>
+          <div class="upgrade">
+            <div id="upgrade-weapon-cost" class="upgrade-cost"></div>
+            <div class="upgrade-level">
+              <div id="upgrade-weapon-level-value"></div>
+              <span id="upgrade-weapon-level-bar"></span>
+            </div>
+          </div>
+          <div id="upgrade-weapon-level-up" class="icon-clickable icon-plus"></div>
+        </div>
+
+        <div class="shop-item">
+          <div id="upgrade-charge-icon" class="icon-clickable"></div>
+          <div class="upgrade">
+            <div id="upgrade-charge-cost" class="upgrade-cost"></div>
+            <div class="upgrade-level">
+              <div id="upgrade-charge-level-value"></div>
+              <span id="upgrade-charge-level-bar"></span>
+            </div>
+          </div>
+          <div id="upgrade-charge-level-up" class="icon-clickable icon-plus"></div>
+        </div>
+
+        <div class="shop-item">
+          <div id="upgrade-skill-icon" class="icon-clickable"></div>
+          <div class="upgrade">
+            <div id="upgrade-skill-cost" class="upgrade-cost"></div>
+            <div class="upgrade-level">
+              <div id="upgrade-skill-level-value"></div>
+              <span id="upgrade-skill-level-bar"></span>
+            </div>
+          </div>
+          <div id="upgrade-skill-level-up" class="icon-clickable icon-plus"></div>
+        </div>
+      </div>
+
+      <div class="shop-section">
+        <div id="shop-item-list"></div>
+        <button id="shop-btn-equip" disabled>Equip</button>
+      </div>
+    </div>
+
+    <div id="shop-footer">
+      <button id="shop-btn-next" disabled>Next</button>
+      <span id="shop-player-money"></span>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<script src="js/global.js"></script>
+<script src="js/frame.js"></script>
+<script src="js/unit.js"></script>
+<script src="js/missile.js"></script>
+<script src="js/weapon.js"></script>
+<script src="js/enemy.js"></script>
+<script src="js/skill.js"></script>
+<script src="js/stage.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/shop.js"></script>
