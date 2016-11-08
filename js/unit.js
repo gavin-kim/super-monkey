@@ -162,12 +162,12 @@ function Player(frame, x, y, type) {
     var _gauge = 0;     // for charge skill
     var _pause;
 
-    var _immune;        // immune from damage
+    var _immuneTimer;          // timer to reduce counter
+    var _immuneCounter;        // immune from collision
 
     var _chargeAnimationUnit = new Unit(CHARGING, x, y);  // charging animation
     var _chargeAnimationTimer;      // timeout
     var _interface;
-
 
     self.getType = function() {
         return _type;
@@ -308,7 +308,13 @@ function Player(frame, x, y, type) {
 
     self.moveLeft = function() {
         _chargeAnimationUnit.setX(_chargeAnimationUnit.getX() - _speed);
-        self.setX(self.getX() - _speed);
+
+        // check the player in the stage
+        if (self.getX() - _speed < 0)
+            self.setX(0);
+        else
+            self.setX(self.getX() - _speed);
+
         self.nextFrame();
 
         // when mirror image skill is running
@@ -319,7 +325,12 @@ function Player(frame, x, y, type) {
 
     self.moveRight = function() {
         _chargeAnimationUnit.setX(_chargeAnimationUnit.getX() + _speed);
-        self.setX(self.getX() + _speed);
+
+        if (self.getX() + _speed > STAGE_WIDTH)
+            self.setX(STAGE_WIDTH);
+        else
+            self.setX(self.getX() + _speed);
+
         self.nextFrame();
 
         // when mirror image skill is running
@@ -332,7 +343,11 @@ function Player(frame, x, y, type) {
 
         _chargeAnimationUnit.setY(_chargeAnimationUnit.getY() - _speed);
 
-        self.setY(self.getY() - _speed);
+        if (self.getY() - _speed < 0)
+            self.setY(0);
+        else
+            self.setY(self.getY() - _speed);
+
         self.nextFrame();
 
         // when mirror image skill is running
@@ -343,7 +358,12 @@ function Player(frame, x, y, type) {
 
     self.moveDown = function() {
         _chargeAnimationUnit.setY(_chargeAnimationUnit.getY() + _speed);
-        self.setY(self.getY() + _speed);
+
+        if (self.getY() + _speed > STAGE_HEIGHT)
+            self.setY(STAGE_HEIGHT);
+        else
+            self.setY(self.getY() + _speed);
+
         self.nextFrame();
 
 
@@ -365,9 +385,11 @@ function Player(frame, x, y, type) {
     self.stopCharging = function() {
         clearTimeout(_chargeAnimationTimer);
         _chargeAnimationUnit.removeDom();
-        return _gauge;
-    };
 
+        // check the gauge
+        if (_gauge >= PLAYER.MAX_GAUGE)
+            self.useChargeSkill();
+    };
 
     self.pause = function() {
 
@@ -375,6 +397,7 @@ function Player(frame, x, y, type) {
         _skill.pause();
         _chargeSkill.pause();
         clearTimeout(_chargeAnimationTimer);
+        clearTimeout(_immuneCounter);
     };
 
     self.resume = function() {
@@ -382,6 +405,37 @@ function Player(frame, x, y, type) {
         _pause = false;
         _skill.resume();
         _chargeSkill.resume();
+        runImmuneTimer();
+    };
+
+    self.isImmune = function() {
+        return _immuneCounter > 0;
+    };
+
+    // start or stop immune timer
+    self.setImmune = function(isImmune) {
+
+        _immuneCounter = PLAYER.IMMUNE_COUNT;
+        // run immune timer
+        if (isImmune)
+            runImmuneTimer();
+        // clear immune timer
+        else {
+            clearTimeout(_immuneTimer);
+        }
+    };
+
+    // run timer to reduce count every delay while the counter > 0
+    var runImmuneTimer = function() {
+        _immuneTimer = setTimeout(function() {
+
+            // reduce count
+            _immuneCounter--;
+
+            if (_immuneCounter > 0)
+                runImmuneTimer();
+
+        }, PLAYER.IMMUNE_TIMER_DELAY);
     };
 
     self.getInterface = function() {

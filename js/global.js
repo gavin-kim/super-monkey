@@ -16,13 +16,15 @@ var PLAYER = {
     MAX_SP: 100,
     MAX_WEAPON_LV: 4,
     MAX_SKILL_LV: 4,
-    MAX_GAUGE: 25,         // charge skill 2500 ms
+    MAX_GAUGE: 25,       // charge skill 2500 ms
     DEFAULT_HP: 5,
     DEFAULT_SP: 0,
     DEFAULT_WEAPON_LV: 1,
     DEFAULT_SKILL_LV: 1,
     DEFAULT_MONEY: 100,
-    DEFAULT_SPEED: 5
+    DEFAULT_SPEED: 5,
+    IMMUNE_COUNT: 5,      // 5 * 50 : 250ms
+    IMMUNE_TIMER_DELAY: 50
 
 };
 var DURATION = {

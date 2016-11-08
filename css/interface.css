@@ -24,7 +24,7 @@
     color: deeppink;
     border: 3px outset deeppink;
     width: 40%;
-    top: 30%;
+    top: 40%;
     left: 30%;
     z-index: 2;
 }
@@ -233,38 +233,46 @@
 
 .icon-basic {
     background-image: url(../img/interface/skill.png);
-    background-position-x: 0;
+    background-position-x: -192px;
+    background-position-y: -192px;
 }
 
 .icon-bomb {
     background-image: url(../img/interface/skill.png);
-    background-position-x: -48px;
+    background-position-x: -432px;
+    background-position-y: -288px;
 }
 
 .icon-launcher {
     background-image: url(../img/interface/skill.png);
-    background-position-x: -96px;
+    background-position-y: -336px;
 }
 
 .icon-mirror-image {
     background-image: url(../img/interface/skill.png);
+    background-position-x: -384px;
+    background-position-y: -144px;
+}
+.icon-laser {
+    background-image: url(../img/interface/skill.png);
     background-position-x: -144px;
+    background-position-y: -48px;
+}
+
+.icon-tornado {
+    background-image: url(../img/interface/skill.png);
+    background-position-y: -192px;
 }
 
 .icon-blast {
     background-image: url(../img/interface/skill.png);
-    background-position-x: -192px;
+    background-position-x: -336px;
 }
 
 .icon-energy-ball {
     background-image: url(../img/interface/skill.png);
-    background-position-x: -240px;
-}
-
-.icon-lock {
-    background-image: url(../img/interface/skill.png);
-    background-position-y: -48px;
-    background-position-x: 0;
+    background-position-x: -144px;
+    background-position-y: -240px;
 }
 
 .icon-plus:before {
@@ -273,47 +281,22 @@
 
 .icon-plus {
     background-color: black;
-    color: deeppink;
+    color: gold;
+    border: 2px outset gold;
     vertical-align: middle;
     text-align: center;
-    font-size: 48px;
     font-weight: bold;
     border-radius: 5px;
+    font-size: 48px;
     width: 48px;
     height: 48px;
     line-height: 48px;
 }
 
-.icon-minus {
-    background-image: url(../img/interface/skill.png);
-    background-position-x: -96px;
-    background-position-y: -48px;
-}
 
-.icon-controller {
-    background-image: url(../img/interface/skill.png);
-    background-position-x: -144px;
-    background-position-y: -48px;
-}
-
-.icon-music {
-    background-image: url(../img/interface/skill.png);
-    background-position-x: -192px;
-    background-position-y: -48px;
-}
-
-.icon-sound {
-    background-image: url(../img/interface/skill.png);
-    background-position-x: -240px;
-    background-position-y: -48px;
-}
 .icon-super-monkey {
     background-image: url(../img/interface/super_monkey.png);
 }
-
 .icon-ninja-monkey {
     background-image: url(../img/interface/ninja_monkey.png);
-}
-.icon-character-lock {
-    background-image: url(../img/interface/icon-character-lock.png);
 }

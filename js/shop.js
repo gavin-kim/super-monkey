@@ -270,7 +270,7 @@ function Shop(iFace) {
         _player.setInterface(_interface);
         _player.setWeapon(WeaponFactory.getBasic(_player));
         _player.setSkill(WeaponFactory.getBlast(_player));
-        _player.setHp(5);
+        _player.setHp(1);
         _player.setSp(100);
         _player.setMoney(1000);
 
@@ -284,11 +284,16 @@ function Shop(iFace) {
         setSkill(_player.getSkill());
     };
 
-    var onClickCharacter = function(ev) {
-
+    // clear
+    var clearSelectedCharacter = function() {
         document.querySelectorAll(".character").forEach(function(character) {
             character.classList.remove("character-selected");
         });
+    };
+
+    var onClickCharacter = function(ev) {
+
+        clearSelectedCharacter();
 
         switch (ev.target.id) {
             case "character-super":
@@ -320,7 +325,7 @@ function Shop(iFace) {
                 _shopHeader.title.innerHTML = "Shop";
                 _characters.container.style.display = "none";
                 _shop.container.style.display = "flex";
-                _shopFooter.playerMoney.style.display = "block";
+                _shopFooter.playerMoney.style.display = "";
                 _currentStep++;
                 break;
 
@@ -351,6 +356,8 @@ function Shop(iFace) {
     self.show = function(player) {
 
         _container.style.display = "flex";
+        _interface.hideStatus();
+        clearSelectedCharacter();
 
         // check if a player exists
         if (_player = player) {
