@@ -334,6 +334,13 @@ function MirrorImage(unit, level) {
     var smokeFrameCount = 0; // smoke animation count
     var smokeTotalFrame = MIRROR_IMAGE_SMOKE.COLUMN * MIRROR_IMAGE_SMOKE.ROW;
 
+    var gap = [50, 100, 150, 200];
+
+    var setX = function() {
+        mirrorUnits.forEach(function(mu) {
+            mu.setX(self.getUnit().getX())
+        })
+    }
 
     var createMirrorUnit = function() {
 
@@ -372,9 +379,9 @@ function MirrorImage(unit, level) {
             var mirrorUnit = createMirrorUnit();
 
             if (i % 2 == 0)
-                mirrorUnit.setX(self.getUnit().getX() - (Math.floor(i / 2) + 1) * 50);
+                mirrorUnit.setX(self.getUnit().getX() - (Math.floor(i / 2) + 1) * MirrorImage.GAP_WIDTH);
             else
-                mirrorUnit.setX(self.getUnit().getX() + (Math.floor(i / 2) + 1) * 50);
+                mirrorUnit.setX(self.getUnit().getX() + (Math.floor(i / 2) + 1) * MirrorImage.GAP_WIDTH);
 
             mirrorUnit.setY(self.getUnit().getY());
             mirrorUnits.push(mirrorUnit);
@@ -481,7 +488,7 @@ function MirrorImage(unit, level) {
 
 MirrorImage.prototype = new Skill();
 MirrorImage.prototype.constructor = MirrorImage;
-
+MirrorImage.GAP_WIDTH = 50;
 
 
 /**

@@ -155,10 +155,10 @@ function Player(frame, x, y, type) {
     var _chargeSkill;
     var _skill;
 
-    var _hp = 5;
+    var _hp = 0;
     var _sp = 0;        // skill point
     var _money = 0;     // money
-    var _speed = 5;     // unit speed
+    var _speed = 0;     // unit speed
     var _gauge = 0;     // for charge skill
     var _pause;
 

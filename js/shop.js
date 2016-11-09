@@ -270,9 +270,10 @@ function Shop(iFace) {
         _player.setInterface(_interface);
         _player.setWeapon(WeaponFactory.getBasic(_player));
         _player.setSkill(WeaponFactory.getBlast(_player));
-        _player.setHp(1);
-        _player.setSp(100);
-        _player.setMoney(1000);
+        _player.setHp(PLAYER.DEFAULT_HP);
+        _player.setSp(PLAYER.DEFAULT_SP);
+        _player.setSpeed(PLAYER.DEFAULT_SPEED);
+        _player.setMoney(PLAYER.DEFAULT_MONEY);
 
         _shopFooter.playerMoney.innerHTML = _player.getMoney(); // show player money
 
@@ -289,6 +290,7 @@ function Shop(iFace) {
         document.querySelectorAll(".character").forEach(function(character) {
             character.classList.remove("character-selected");
         });
+        _shopFooter.btnNext.disabled = true;
     };
 
     var onClickCharacter = function(ev) {
@@ -335,8 +337,8 @@ function Shop(iFace) {
 
                     label: "Yes",
                     event: function() {
-                        self.hide();
                         _currentStep = 0;
+                        self.hide();
                         _interface.getStage().start();
                         _interface.showStatus();
 

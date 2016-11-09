@@ -4,7 +4,7 @@ function Stage(iFace) {
 
     var self = this;
     var keyOn = [];
-    var _charge;
+    var _charge = 0;
     var types = ["normal", "patrol", "rush", "hold"];
     var enemyFactory = new EnemyFactory();
     var _interface = iFace;
@@ -75,24 +75,41 @@ function Stage(iFace) {
     };
 
     self.start = function() {
+
+        initEnemies(500);
         setKeyEvents();
         startTimers();
-
-        _charge = 0;
-        enemies = [];
-        eMissiles = [];
-        pMissiles = [];
-        pExplosions = [];
-        initEnemies(500);
     };
 
     self.clear = function() {
+
         if (_pause) {
             removeKeyEvents();
         } else {
             self.pause();
             removeKeyEvents();
         }
+
+        enemies.forEach(function(enemy) {
+            enemy.die();
+        });
+        pMissiles.forEach(function(pm) {
+            pm.die();
+        });
+        eMissiles.forEach(function(em) {
+            em.die();
+        });
+        pExplosions.forEach(function(pe) {
+            pe.die();
+        });
+
+        _pause = false;
+        _charge = 0;
+        eMissiles = [];
+        pMissiles = [];
+        pExplosions = [];
+
+        player.removeDom();
     };
 
     self.getInterface = function() {
@@ -107,8 +124,7 @@ function Stage(iFace) {
     var setKeyEvents = function() {
 
         // when key down event appears, set variable = true;
-        document.onkeydown = function(ev)
-        {
+        document.onkeydown = function(ev) {
             var keyCode = (window.event) ? event.keyCode : ev.keyCode;
             keyOn[keyCode] = true;
 
@@ -128,8 +144,7 @@ function Stage(iFace) {
         };
 
         // when key up event appears, set variable = false;
-        document.onkeyup = function(ev)
-        {
+        document.onkeyup = function(ev) {
             var keyCode = (window.event) ? event.keyCode : ev.keyCode;
             keyOn[keyCode] = false;
 
@@ -301,7 +316,6 @@ function Stage(iFace) {
                 }
             });
 
-
             // player vs enemies
             for (var i = 0; i < enemyIndex; i++) {
 
@@ -330,27 +344,11 @@ function Stage(iFace) {
 
             label: "OK",
             event: function() {
-                reset();
+                self.clear();
                 _interface.getShop().show();
             }
         }]);
     };
-
-    var reset = function() {
-        enemies.forEach(function(enemy) {
-            enemy.die();
-        });
-        pMissiles.forEach(function(pm) {
-            pm.die();
-        });
-        eMissiles.forEach(function(em) {
-            em.die();
-        });
-        pExplosions.forEach(function(pe) {
-            pe.die();
-        });
-    };
-
 
     var removeDeadUnit= function() {
 
@@ -371,6 +369,7 @@ function Stage(iFace) {
     };
 
     var initEnemies = function(num) {
+        enemyIndex = 0;
         enemies = [];
         for (var i = 0; i < num; i++) {
             enemies.push(enemyFactory.createEnemy(types[Math.floor(Math.random() * 4)]));

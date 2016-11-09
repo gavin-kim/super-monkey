@@ -1,5 +1,7 @@
 "use strict";
 
+//TODO: money, tornado after resume
+
 angular
     .module("app")
     .component("gameSuperMonkey", {
@@ -25,7 +27,6 @@ function SuperMonkeyController() {
         _stage.resume();
     };
 
-
     var init = function() {
 
         stage = document.querySelector("#stage");
@@ -43,10 +44,11 @@ function SuperMonkeyController() {
 
             // show a dialog to confirm
             _interface.showDialog("Are you sure?", [{
-
                     label: "Yes",
                     event: function() {
-                        console.log("Yes");
+                        _interface.hideMenu();
+                        _stage.clear();
+                        _shop.show();
                     }
                 }, {
                     label: "No",

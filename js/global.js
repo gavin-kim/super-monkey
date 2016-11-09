@@ -18,10 +18,10 @@ var PLAYER = {
     MAX_SKILL_LV: 4,
     MAX_GAUGE: 25,       // charge skill 2500 ms
     DEFAULT_HP: 5,
-    DEFAULT_SP: 0,
+    DEFAULT_SP: 100,
     DEFAULT_WEAPON_LV: 1,
     DEFAULT_SKILL_LV: 1,
-    DEFAULT_MONEY: 100,
+    DEFAULT_MONEY: 500,
     DEFAULT_SPEED: 5,
     IMMUNE_COUNT: 5,      // 5 * 50 : 250ms
     IMMUNE_TIMER_DELAY: 50
@@ -32,7 +32,7 @@ var DURATION = {
 };
 
 var DELAY = {
-    SPAWN_ENEMY: 2000,      // to spawn a new enemy
+    SPAWN_ENEMY: 1000,      // to spawn a new enemy
     CHECK_DEAD_UNIT: 5000,       // to check dead units
     CHECK_MOVE_KEY: 60,     // to check move keys
     CHECK_ACTION_KEY: 100,  // to check action keys
