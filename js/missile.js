@@ -160,10 +160,6 @@ function Missile(frame, x, y, tx, ty, speed, power, spin)
         run();
     };
 
-    self.setTimer = function(timer) {
-        _timer = timer;
-    };
-
     self.fire = function() {
 
         self.getDom().classList.add("missile");
@@ -341,7 +337,20 @@ function CurveShot(frame, x, y, tx, ty, speed, power, spin, dist) {
     var _dist = 0;
 
     // radian missile's and unit's position
-    var _radian = Math.atan2(-ty, -tx);
+    var _radian = Math.atan2(ty, tx);
+    var _pause;
+    var _timer;
+
+    // overridden
+    self.pause = function() {
+        _pause = true;
+        clearTimeout(_timer);
+    };
+
+    self.resume = function() {
+        _pause = false;
+        run();
+    };
 
     self.fire = function() {
 
@@ -357,7 +366,7 @@ function CurveShot(frame, x, y, tx, ty, speed, power, spin, dist) {
         if (self.pause())
             return;
 
-        self.setTimer(setTimeout(function() {
+        _timer = setTimeout(function() {
 
             if (CurveShot.LIMIT.LEFT < self.getX() && CurveShot.LIMIT.RIGHT > self.getX() &&
                 CurveShot.LIMIT.TOP < self.getY() && CurveShot.LIMIT.BOTTOM > self.getY()) {
@@ -389,7 +398,7 @@ function CurveShot(frame, x, y, tx, ty, speed, power, spin, dist) {
                 self.removeDom();
                 self.setAlive(false);
             }
-        }, DELAY.MISSILE));
+        }, DELAY.MISSILE);
     };
 
     self.clone = function() {

@@ -1,9 +1,11 @@
 "use strict";
 
+//TODO: key info when a user starts
+
 angular
     .module("app")
     .component("gameSuperMonkey", {
-        templateUrl: "game-super-monkey.html",
+        templateUrl: "/resources/app/game/super-monkey/game-super-monkey.html",
         controllerAs: "ctrl",
         controller: SuperMonkeyController
     });
@@ -25,7 +27,6 @@ function SuperMonkeyController() {
         _stage.resume();
     };
 
-
     var init = function() {
 
         stage = document.querySelector("#stage");
@@ -43,16 +44,15 @@ function SuperMonkeyController() {
 
             // show a dialog to confirm
             _interface.showDialog("Are you sure?", [{
-
                     label: "Yes",
                     event: function() {
-                        console.log("Yes");
+                        _interface.hideMenu();
+                        _stage.clear();
+                        _shop.show();
                     }
                 }, {
                     label: "No",
-                    event: function() {
-                        console.log("No");
-                    }
+                    event: function() {}
                 }
             ]);
         });

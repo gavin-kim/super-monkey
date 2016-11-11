@@ -1,85 +1,88 @@
 .charging {
     position: absolute;
-    background-image: url(../img/global/charging.png);
+    background-image: url(/resources/app/game/super-monkey/img/global/charging.png);
 }
 
 .charged {
     position: absolute;
-    background-image: url(../img/global/charged.png);
+    background-image: url(/resources/app/game/super-monkey/img/global/charged.png);
 }
 
 .super-monkey {
-    background-image: url(../img/super/super_monkey.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/super_monkey.png);
 }
 
 .ninja-monkey {
-    background-image: url(../img/ninja/ninja_monkey.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/ninja_monkey.png);
 }
 
 .enemy-missile {
-    background-image: url(../img/enemy/missile.png);
+    background-image: url(/resources/app/game/super-monkey/img/enemy/missile.png);
 }
 
 .basic-s {
-    background-image: url(../img/super/basic.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/basic.png);
 }
 .basic-n {
-    background-image: url(../img/ninja/basic.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/basic.png);
 }
 .bomb-missile-s {
-    background-image: url(../img/super/bomb_missile.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/bomb_missile.png);
 }
 .bomb-missile-n {
-    background-image: url(../img/ninja/bomb_missile.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/bomb_missile.png);
 }
 .bomb-explosion-s {
-    background-image: url(../img/super/bomb_explosion.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/bomb_explosion.png);
 }
 .bomb-explosion-n {
-    background-image: url(../img/ninja/bomb_explosion.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/bomb_explosion.png);
 }
 
 .launcher-missile-s {
-    background-image: url(../img/super/launcher_missile.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/launcher_missile.png);
 }
 .launcher-missile-n {
-    background-image: url(../img/ninja/launcher_missile.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/launcher_missile.png);
 }
 .launcher-shot-s {
-    background-image: url(../img/super/launcher_shot.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/launcher_shot.png);
 }
 .launcher-shot-n {
-    background-image: url(../img/ninja/launcher_shot.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/launcher_shot.png);
 }
 
 .laser {
-    background-image: url(../img/super/laser.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/laser.png);
     opacity: 0.8;
 }
 
 .tornado {
-    background-image: url(../img/ninja/tornado.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/tornado.png);
 }
 
 .energy-ball{
+    background-image: url(/resources/app/game/super-monkey/img/super/energy_ball.png);
+    width: 384px;
+    height: 384px;
     opacity: 0.8;
 }
 
 .mirror-image-smoke {
-    background-image: url(../img/ninja/mirror_image_smoke.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/mirror_image_smoke.png);
     opacity: 0.8;
 }
 
 .blast-s {
-    background-image: url(../img/super/blast.png);
+    background-image: url(/resources/app/game/super-monkey/img/super/blast.png);
 }
 
 .blast-n {
-    background-image: url(../img/ninja/blast.png);
+    background-image: url(/resources/app/game/super-monkey/img/ninja/blast.png);
 }
 
 .slime-blue, .slime-red, .slime-green, .slime-yellow,
 .slime-black, .slime-pink, .slime-purple, .slime-orange {
-    background-image: url(../img/enemy/slime.png);
+    background-image: url(/resources/app/game/super-monkey/img/enemy/slime.png);
     position: absolute;
 }

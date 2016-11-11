@@ -120,6 +120,20 @@ function Shop(iFace) {
             skill.getLevel() + " / 4";
     };
 
+    // get refund
+    var getRefund = function(item) {
+
+        var refund = 0;
+
+        for (var i = 1; i < item.getLevel() + 1; i++) {
+            refund += UPGRADE_COST[item.getName()][i];
+        }
+
+        console.log(refund, item.getLevel());
+
+        return refund;
+    };
+
     // equip item
     var btnEquipEvent = function() {
 
@@ -130,14 +144,14 @@ function Shop(iFace) {
             var name = selectedItem.querySelector(".shop-item-name").innerHTML;
             var cost = selectedItem.querySelector(".shop-item-cost").innerHTML;
 
+
             switch (_itemListType) {
                 case "weapon":
 
                     var weapon = _player.getWeapon();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[weapon.getName()][weapon.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(weapon));
 
                     // switch weapon
                     setWeapon(WeaponFactory.getByName(_player, name));
@@ -148,8 +162,7 @@ function Shop(iFace) {
                     var chargeSkill = _player.getChargeSkill();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[chargeSkill.getName()][chargeSkill.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(chargeSkill));
 
                     // switch weapon
                     setChargeSkill(WeaponFactory.getByName(_player, name));
@@ -157,11 +170,10 @@ function Shop(iFace) {
                     break;
                 case "skill":
 
-                    var skill = _player.getChargeSkill();
+                    var skill = _player.getSkill();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[skill.getName()][skill.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(skill));
 
                     // switch weapon
                     setSkill(WeaponFactory.getByName(_player, name));
@@ -177,7 +189,7 @@ function Shop(iFace) {
     var createWeaponList = function() {
 
         _shop.itemList.innerHTML = "";
-        _shop.itemListType = "weapon";
+        _itemListType = "weapon";
         _shop.btnEquip.disabled = true;
 
         ITEM_LIST[_player.getType()]["weapon"].forEach(function(obj) {
@@ -270,9 +282,10 @@ function Shop(iFace) {
         _player.setInterface(_interface);
         _player.setWeapon(WeaponFactory.getBasic(_player));
         _player.setSkill(WeaponFactory.getBlast(_player));
-        _player.setHp(5);
-        _player.setSp(100);
-        _player.setMoney(1000);
+        _player.setHp(PLAYER.DEFAULT_HP);
+        _player.setSp(PLAYER.DEFAULT_SP);
+        _player.setSpeed(PLAYER.DEFAULT_SPEED);
+        _player.setMoney(PLAYER.DEFAULT_MONEY);
 
         _shopFooter.playerMoney.innerHTML = _player.getMoney(); // show player money
 
@@ -284,11 +297,17 @@ function Shop(iFace) {
         setSkill(_player.getSkill());
     };
 
-    var onClickCharacter = function(ev) {
-
+    // clear
+    var clearSelectedCharacter = function() {
         document.querySelectorAll(".character").forEach(function(character) {
             character.classList.remove("character-selected");
         });
+        _shopFooter.btnNext.disabled = true;
+    };
+
+    var onClickCharacter = function(ev) {
+
+        clearSelectedCharacter();
 
         switch (ev.target.id) {
             case "character-super":
@@ -320,7 +339,7 @@ function Shop(iFace) {
                 _shopHeader.title.innerHTML = "Shop";
                 _characters.container.style.display = "none";
                 _shop.container.style.display = "flex";
-                _shopFooter.playerMoney.style.display = "block";
+                _shopFooter.playerMoney.style.display = "";
                 _currentStep++;
                 break;
 
@@ -330,8 +349,8 @@ function Shop(iFace) {
 
                     label: "Yes",
                     event: function() {
-                        self.hide();
                         _currentStep = 0;
+                        self.hide();
                         _interface.getStage().start();
                         _interface.showStatus();
 
@@ -351,6 +370,8 @@ function Shop(iFace) {
     self.show = function(player) {
 
         _container.style.display = "flex";
+        _interface.hideStatus();
+        clearSelectedCharacter();
 
         // check if a player exists
         if (_player = player) {
