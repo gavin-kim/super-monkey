@@ -109,7 +109,7 @@ function Stage(iFace) {
         pMissiles = [];
         pExplosions = [];
 
-        player.removeDom();
+        player.clear();
     };
 
     self.getInterface = function() {

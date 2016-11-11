@@ -1,11 +1,11 @@
 "use strict";
 
-//TODO: money, tornado after resume
+//TODO: key info when a user starts
 
 angular
     .module("app")
     .component("gameSuperMonkey", {
-        templateUrl: "game-super-monkey.html",
+        templateUrl: "/resources/app/game/super-monkey/game-super-monkey.html",
         controllerAs: "ctrl",
         controller: SuperMonkeyController
     });
@@ -52,9 +52,7 @@ function SuperMonkeyController() {
                     }
                 }, {
                     label: "No",
-                    event: function() {
-                        console.log("No");
-                    }
+                    event: function() {}
                 }
             ]);
         });

@@ -226,53 +226,60 @@
 }
 
 .icon-money {
-    background-image: url(../img/interface/coin.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/coin.png);
     width: 24px;
     height: 24px;
 }
 
 .icon-basic {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -192px;
     background-position-y: -192px;
 }
 
 .icon-bomb {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -432px;
     background-position-y: -288px;
 }
 
 .icon-launcher {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-y: -336px;
 }
 
 .icon-mirror-image {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -384px;
     background-position-y: -144px;
 }
 .icon-laser {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -144px;
     background-position-y: -48px;
 }
 
 .icon-tornado {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-y: -192px;
 }
 
 .icon-blast {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -336px;
 }
 
 .icon-energy-ball {
-    background-image: url(../img/interface/skill.png);
+    background-image: url(/resources/app/game/super-monkey/img/interface/skill.png);
     background-position-x: -144px;
     background-position-y: -240px;
+}
+
+.icon-super-monkey {
+    background-image: url(/resources/app/game/super-monkey/img/interface/super_monkey.png);
+}
+.icon-ninja-monkey {
+    background-image: url(/resources/app/game/super-monkey/img/interface/ninja_monkey.png);
 }
 
 .icon-plus:before {
@@ -291,12 +298,4 @@
     width: 48px;
     height: 48px;
     line-height: 48px;
-}
-
-
-.icon-super-monkey {
-    background-image: url(../img/interface/super_monkey.png);
-}
-.icon-ninja-monkey {
-    background-image: url(../img/interface/ninja_monkey.png);
 }

@@ -1,21 +1,14 @@
-.clone
-{
-    opacity: 0.5;
-}
-body, html
-{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+#stage {
+    background-image: url(/resources/app/game/super-monkey/img/background/stage.jpg);
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
-#stage
-{
-    background-image: url(../img/background/stage.jpg);
-    position: relative;
-    margin: 0 auto;
-    overflow: hidden;
+.clone {
+    opacity: 0.5;
 }
+
 .unit {
     position: absolute;
 }

@@ -39,6 +39,7 @@ function Skill(unit, level) {
 
     self.pause = function() {};
     self.resume = function() {};
+    self.clear = function() {};
 }
 
 
@@ -48,10 +49,10 @@ function Laser(unit, frame, level) {
     Skill.call(this, unit, level);
 
     var self = this;
-    var _power = level * 5;
+    var _power = level * 10;
     var _vy = 50;            // velocity y
     var _frame = frame;
-    var _scaleX = self.getLevel() * 50 / frame.WIDTH;  // laser scale x
+    var _scaleX;  // laser scale x
 
     var _dom;  // dom
     var _cl; // left to check collision
@@ -76,6 +77,11 @@ function Laser(unit, frame, level) {
         }
     };
 
+    self.clear = function() {
+        _dom.remove();
+        self.setRunning(false);
+    };
+
     self.fire = function() {
 
         if (self.isRunning())
@@ -86,6 +92,7 @@ function Laser(unit, frame, level) {
         var x = self.getUnit().getX();
         var y = self.getUnit().getY();
 
+        _scaleX = self.getLevel() / 3;
         _cl = x - _frame.RADIUS * _scaleX;
         _cr = x + _frame.RADIUS * _scaleX;
         _top = y - self.getUnit().getRadius();
@@ -98,7 +105,8 @@ function Laser(unit, frame, level) {
         _dom.style.height = _height + "px";
         _dom.style.left = (x - _frame.WIDTH / 2) + "px";
         _dom.style.top = _top + "px";
-        _dom.style.transform = "scale(" + _scaleX + ",1)";
+        _dom.style.transform = "scale(" + _scaleX + ", 1)";
+        console.log(_scaleX, self.getLevel());
         stage.appendChild(_dom);
 
         run();
@@ -141,8 +149,7 @@ function Laser(unit, frame, level) {
                 run();
             }
             else {
-                _dom.remove();
-                self.setRunning(false);
+                self.clear();
             }
         }, DELAY.MISSILE);
     };
@@ -175,7 +182,7 @@ function Tornado(unit, frame, level, speed, power) {
         var x = self.getUnit().getX();
         var y = self.getUnit().getY();
 
-        var max = 3 * self.getLevel();
+        var max = 4 * self.getLevel();
 
         // make objects the number of object depends on level 8, 12, 16, 20
         for (var i = 0; i < max; i++) {
@@ -211,11 +218,11 @@ function EnergyBall(unit, level, power) {
     var self = this;
     var _speed = 2;
     var _power = power;
-    var x, y;
-    var deg;
-    var radius;
-    var maxRadius;
-    var dom;
+    var _x, _y;
+    var _deg;
+    var _radius;
+    var _maxRadius; // size 0.25, 0.5, 0.75, 1.0
+    var _dom;
     var _timer;
     var _pause;
 
@@ -233,6 +240,11 @@ function EnergyBall(unit, level, power) {
         }
     };
 
+    self.clear = function() {
+        _dom.remove();
+        self.setRunning(false);
+    };
+
     self.fire = function() {
 
         if (self.isRunning())
@@ -240,19 +252,17 @@ function EnergyBall(unit, level, power) {
         else
             self.setRunning(true);
 
-        x = self.getUnit().getX();
-        y = self.getUnit().getY();
-        deg = 0;
-        radius = 10;
-        maxRadius = self.getLevel() * 40;
-        dom = document.createElement("img");
-        dom.src = "img/super/energy_ball.png";
-        dom.classList.add("skill", "energy-ball");
-        dom.style.left = (x - radius) + "px";
-        dom.style.top = (y - radius) + "px";
-        dom.style.width = (radius * 2) + "px";
-        dom.style.height = (radius * 2) + "px";
-        stage.appendChild(dom);
+        _x = self.getUnit().getX();
+        _y = self.getUnit().getY() - self.getUnit().getRadius();
+        _deg = 0;
+        _radius = 5;
+        _maxRadius = self.getLevel() * 50;
+        _dom = document.createElement("div");
+        _dom.classList.add("skill", "energy-ball");
+        _dom.style.left = (_x - 384 / 2) + "px";
+        _dom.style.top = (_y - 384 / 2) + "px";
+        _dom.style.transform = "scale(" + (_radius * 2 / 384) + ") rotate(" + _deg + "deg)";
+        stage.appendChild(_dom);
         run();
     };
 
@@ -262,11 +272,11 @@ function EnergyBall(unit, level, power) {
 
         _timer = setTimeout(function() {
 
-            // check collision every 600 ms
-            if (deg % 600 == 0) {
+            // check collision every 360 ms
+            if (_deg % 180 == 0) {
                 for (var i = 0; i < enemyIndex; i++) {
                     if (enemies[i].isAlive() &&
-                        distance(x, y, enemies[i].getX(), enemies[i].getY()) <= enemies[i].getRadius() + radius) {
+                        distance(_x, _y, enemies[i].getX(), enemies[i].getY()) <= enemies[i].getRadius() + _radius) {
 
                         enemies[i].setHp(enemies[i].getHp() - _power);
 
@@ -281,28 +291,24 @@ function EnergyBall(unit, level, power) {
 
             eMissiles.forEach(function(missile) {
                 if (missile.isAlive() &&
-                    distance(x, y, missile.getX(), missile.getY()) <= missile.getRadius() + radius)
+                    distance(_x, _y, missile.getX(), missile.getY()) <= missile.getRadius() + _radius)
                     missile.die();
             });
 
             // rotate velocity for unit
-            deg -= 30;
-            y -= _speed;
+            _deg -= 30;
+            _y -= _speed;
 
-            if (radius < maxRadius)
-                radius++;
+            if (_radius < _maxRadius)
+                _radius++;
 
-            dom.style.transform = "rotate(" + deg + "deg)";
-            dom.style.width = (radius * 2) + "px";
-            dom.style.height = (radius * 2) + "px";
-            dom.style.left = (x - radius) + "px";
-            dom.style.top = (y - radius) + "px";
+            _dom.style.transform = "scale(" + (_radius * 2 / 384) + ") rotate(" + _deg + "deg)";
+            _dom.style.top = (_y - 384 / 2) + "px";
 
-            if (y > 0) {
+            if (_y > 0) {
                 run();
             } else {
-                dom.remove();
-                self.setRunning(false);
+                self.clear();
             }
 
         }, DELAY.MISSILE);
@@ -334,13 +340,6 @@ function MirrorImage(unit, level) {
     var smokeFrameCount = 0; // smoke animation count
     var smokeTotalFrame = MIRROR_IMAGE_SMOKE.COLUMN * MIRROR_IMAGE_SMOKE.ROW;
 
-    var gap = [50, 100, 150, 200];
-
-    var setX = function() {
-        mirrorUnits.forEach(function(mu) {
-            mu.setX(self.getUnit().getX())
-        })
-    }
 
     var createMirrorUnit = function() {
 
@@ -363,6 +362,58 @@ function MirrorImage(unit, level) {
         return mirrorUnit;
     };
 
+
+    // deploy mirror units x position
+    self.deployX = function() {
+        var x = self.getUnit().getX();
+
+        for (var i = 0; i < self.getLevel(); i++) {
+            mirrorUnits[i * 2].setX(x - MirrorImage.GAP[i]);
+            mirrorUnits[i * 2].syncXChargeAnimation();
+            mirrorUnits[i * 2 + 1].setX(x + MirrorImage.GAP[i]);
+            mirrorUnits[i * 2 + 1].syncXChargeAnimation();
+        }
+    };
+
+    // deploy mirror units y position
+    self.deployY = function() {
+
+        var y = self.getUnit().getY();
+
+        mirrorUnits.forEach(function(unit) {
+            unit.setY(y);
+            unit.syncYChargeAnimation();
+        })
+    };
+
+    self.startCharging = function() {
+        mirrorUnits.forEach(function(unit) {
+            unit.startCharging();
+        });
+    };
+
+    self.stopCharging = function() {
+        mirrorUnits.forEach(function(unit) {
+            unit.stopCharging();
+        });
+    };
+
+    self.useWeapon = function() {
+        mirrorUnits.forEach(function(unit) {
+            unit.useWeapon();
+        });
+    };
+
+
+    // clear mirror units
+    self.clear = function() {
+
+        clearTimeout(mirrorTimer);
+        while (mirrorUnits.length > 0)
+            mirrorUnits.pop().die();
+        self.setRunning(false);
+    };
+
     self.fire = function() {
 
         if (self.isRunning())
@@ -375,21 +426,20 @@ function MirrorImage(unit, level) {
         smokes = [];
 
         // create mirror units
-        for (var i = 0; i < self.getLevel() * 2; i++) {
-            var mirrorUnit = createMirrorUnit();
+        for (var i = 0; i < self.getLevel() * 2; i++)
+            mirrorUnits.push(createMirrorUnit());
 
-            if (i % 2 == 0)
-                mirrorUnit.setX(self.getUnit().getX() - (Math.floor(i / 2) + 1) * MirrorImage.GAP_WIDTH);
-            else
-                mirrorUnit.setX(self.getUnit().getX() + (Math.floor(i / 2) + 1) * MirrorImage.GAP_WIDTH);
+        // deploy mirror units
+        self.deployX();
+        self.deployY();
 
-            mirrorUnit.setY(self.getUnit().getY());
-            mirrorUnits.push(mirrorUnit);
-
-            var smoke = new Unit(MIRROR_IMAGE_SMOKE, mirrorUnit.getX(), mirrorUnit.getY());
-            smoke.appendDom();
+        // create smoke animation
+        mirrorUnits.forEach(function(unit) {
+            var smoke = new Unit(MIRROR_IMAGE_SMOKE, unit.getX(), unit.getY());
             smokes.push(smoke);
-        }
+            smoke.appendDom();
+            unit.appendDom();
+        });
 
         animateSmoke();
         checkTime();
@@ -409,7 +459,6 @@ function MirrorImage(unit, level) {
         }
     };
 
-
     // check time while the skill is running
     var checkTime = function() {
         mirrorTimer = setTimeout(function() {
@@ -418,10 +467,7 @@ function MirrorImage(unit, level) {
                 checkTime();
             } else {
                 // remove mirror images
-                while (mirrorUnits.length > 0)
-                    mirrorUnits.pop().die();
-
-                self.setRunning(false);
+                self.clear();
             }
         }, 500);
     };
@@ -444,42 +490,7 @@ function MirrorImage(unit, level) {
         }
     };
 
-    // actions for mirror images
-    self.moveLeft = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.moveLeft();
-        });
-    };
 
-    self.moveRight = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.moveRight();
-        });
-    };
-
-    self.moveUp = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.moveUp();
-        });
-    };
-
-    self.moveDown = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.moveDown();
-        });
-    };
-
-    self.useWeapon = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.useWeapon();
-        });
-    };
-
-    self.useChargeSkill = function() {
-        mirrorUnits.forEach(function(unit) {
-            unit.useChargeSkill();
-        });
-    };
 
     self.getName = function() {
         return "mirror-image";
@@ -488,7 +499,7 @@ function MirrorImage(unit, level) {
 
 MirrorImage.prototype = new Skill();
 MirrorImage.prototype.constructor = MirrorImage;
-MirrorImage.GAP_WIDTH = 50;
+MirrorImage.GAP = [50, 100, 150, 200];
 
 
 /**

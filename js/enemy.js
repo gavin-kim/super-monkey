@@ -307,7 +307,7 @@ function EnemyFactory() {
         }, {
             type: "rush",
             target: "player",
-            increment: 1.1
+            increment: 1.05
         });
 
         return actions;
@@ -439,7 +439,7 @@ function EnemyFactory() {
                         hp: 1,
                         money: 10,
                         sp: 3,
-                        speed: 15
+                        speed: 10
                     },
                     weapon: {
                         name: "basic",

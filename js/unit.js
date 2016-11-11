@@ -150,10 +150,10 @@ function Player(frame, x, y, type) {
 
     var self = this;
 
-    var _type = type;   // player type: ninja , super...
-    var _weapon;        // player's weapon
-    var _chargeSkill;
-    var _skill;
+    var _type = type;   // player type: ninja, super...
+    var _weapon;        // weapon
+    var _chargeSkill;   // charge skill
+    var _skill;         // skill
 
     var _hp = 0;
     var _sp = 0;        // skill point
@@ -248,10 +248,6 @@ function Player(frame, x, y, type) {
 
     self.useChargeSkill = function() {
         _chargeSkill.fire();
-
-        if (_skill instanceof MirrorImage && _skill.isRunning()) {
-            _skill.useChargeSkill();
-        }
     };
 
     self.useSkill = function() {
@@ -301,13 +297,25 @@ function Player(frame, x, y, type) {
 
     self.die = function() {
         if (self.isAlive()) {
-            self.getDom().remove();
+            clearTimeout(_chargeAnimationTimer);
+            _chargeAnimationUnit.removeDom();
+
+            self.clear();
             self.setAlive(false);
         }
     };
 
+    // synchronize x position for the charge animation
+    self.syncXChargeAnimation = function() {
+        _chargeAnimationUnit.setX(self.getX());
+    };
+
+    // synchronize y position for the charge animation
+    self.syncYChargeAnimation = function() {
+        _chargeAnimationUnit.setY(self.getY());
+    };
+
     self.moveLeft = function() {
-        _chargeAnimationUnit.setX(_chargeAnimationUnit.getX() - _speed);
 
         // check the player in the stage
         if (self.getX() - _speed < 0)
@@ -315,80 +323,61 @@ function Player(frame, x, y, type) {
         else
             self.setX(self.getX() - _speed);
 
+        self.syncXChargeAnimation();
         self.nextFrame();
 
         // when mirror image skill is running
         if (_skill instanceof MirrorImage && _skill.isRunning()) {
-            _skill.moveLeft(_speed);
+            _skill.deployX();
         }
     };
 
     self.moveRight = function() {
-        _chargeAnimationUnit.setX(_chargeAnimationUnit.getX() + _speed);
 
         if (self.getX() + _speed > STAGE_WIDTH)
             self.setX(STAGE_WIDTH);
         else
             self.setX(self.getX() + _speed);
 
+        self.syncXChargeAnimation();
         self.nextFrame();
 
         // when mirror image skill is running
         if (_skill instanceof MirrorImage && _skill.isRunning()) {
-            _skill.moveRight(_speed);
+            _skill.deployX();
         }
     };
 
     self.moveUp = function() {
-
-        _chargeAnimationUnit.setY(_chargeAnimationUnit.getY() - _speed);
 
         if (self.getY() - _speed < 0)
             self.setY(0);
         else
             self.setY(self.getY() - _speed);
 
+        self.syncYChargeAnimation();
         self.nextFrame();
 
         // when mirror image skill is running
         if (_skill instanceof MirrorImage && _skill.isRunning()) {
-            _skill.moveUp(_speed);
+            _skill.deployY();
         }
     };
 
     self.moveDown = function() {
-        _chargeAnimationUnit.setY(_chargeAnimationUnit.getY() + _speed);
 
         if (self.getY() + _speed > STAGE_HEIGHT)
             self.setY(STAGE_HEIGHT);
         else
             self.setY(self.getY() + _speed);
 
+        self.syncYChargeAnimation();
         self.nextFrame();
-
 
         // when mirror image skill is running
         if (_skill instanceof MirrorImage && _skill.isRunning()) {
-            _skill.moveDown(_speed);
+            _skill.deployY();
         }
-    };
-
-    // start charging
-    self.startCharging = function() {
-        _gauge = 0;              // reset the gauge
-        _chargeAnimationUnit.setFrame(CHARGING);  // change frame frame
-        _chargeAnimationUnit.appendDom();
-        animateCharging();
-    };
-
-    // stop charging and return gauge
-    self.stopCharging = function() {
-        clearTimeout(_chargeAnimationTimer);
-        _chargeAnimationUnit.removeDom();
-
-        // check the gauge
-        if (_gauge >= PLAYER.MAX_GAUGE)
-            self.useChargeSkill();
     };
 
     self.pause = function() {
@@ -406,6 +395,18 @@ function Player(frame, x, y, type) {
         _skill.resume();
         _chargeSkill.resume();
         runImmuneTimer();
+    };
+
+    // clear player's dom (skills and player)
+    self.clear = function() {
+
+        if (_chargeSkill.isRunning())
+            _chargeSkill.clear();
+
+        if (_skill.isRunning())
+            _skill.clear();
+
+        self.removeDom();
     };
 
     self.isImmune = function() {
@@ -446,15 +447,41 @@ function Player(frame, x, y, type) {
         _interface = iFace;
     };
 
+    // start charging
+    self.startCharging = function() {
+        _gauge = 0;              // reset the gauge
+        _chargeAnimationUnit.setFrame(CHARGING);  // change frame frame
+        _chargeAnimationUnit.appendDom();
+        runChargeAnimation();
+
+        if (_skill instanceof MirrorImage && _skill.isRunning()) {
+            _skill.startCharging();
+        }
+    };
+
+    // stop charging and return gauge
+    self.stopCharging = function() {
+        clearTimeout(_chargeAnimationTimer);
+        _chargeAnimationUnit.removeDom();
+
+        // check the gauge
+        if (_gauge >= PLAYER.MAX_GAUGE)
+            self.useChargeSkill();
+
+        if (_skill instanceof MirrorImage && _skill.isRunning()) {
+            _skill.stopCharging();
+        }
+    };
+
     // when charging, the gauge increases every 100ms
-    var animateCharging = function() {
+    var runChargeAnimation = function() {
 
         if (_gauge++ == PLAYER.MAX_GAUGE)
             _chargeAnimationUnit.setFrame(CHARGED);
 
         _chargeAnimationUnit.nextFrame();
         _chargeAnimationTimer = setTimeout(function() {
-            animateCharging();
+            runChargeAnimation();
         }, 100);
     };
 

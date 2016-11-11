@@ -120,6 +120,20 @@ function Shop(iFace) {
             skill.getLevel() + " / 4";
     };
 
+    // get refund
+    var getRefund = function(item) {
+
+        var refund = 0;
+
+        for (var i = 1; i < item.getLevel() + 1; i++) {
+            refund += UPGRADE_COST[item.getName()][i];
+        }
+
+        console.log(refund, item.getLevel());
+
+        return refund;
+    };
+
     // equip item
     var btnEquipEvent = function() {
 
@@ -130,14 +144,14 @@ function Shop(iFace) {
             var name = selectedItem.querySelector(".shop-item-name").innerHTML;
             var cost = selectedItem.querySelector(".shop-item-cost").innerHTML;
 
+
             switch (_itemListType) {
                 case "weapon":
 
                     var weapon = _player.getWeapon();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[weapon.getName()][weapon.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(weapon));
 
                     // switch weapon
                     setWeapon(WeaponFactory.getByName(_player, name));
@@ -148,8 +162,7 @@ function Shop(iFace) {
                     var chargeSkill = _player.getChargeSkill();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[chargeSkill.getName()][chargeSkill.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(chargeSkill));
 
                     // switch weapon
                     setChargeSkill(WeaponFactory.getByName(_player, name));
@@ -157,11 +170,10 @@ function Shop(iFace) {
                     break;
                 case "skill":
 
-                    var skill = _player.getChargeSkill();
+                    var skill = _player.getSkill();
 
                     // update money
-                    _player.setMoney(_player.getMoney() - cost +
-                        UPGRADE_COST[skill.getName()][skill.getLevel()]);
+                    _player.setMoney(_player.getMoney() - cost + getRefund(skill));
 
                     // switch weapon
                     setSkill(WeaponFactory.getByName(_player, name));
@@ -177,7 +189,7 @@ function Shop(iFace) {
     var createWeaponList = function() {
 
         _shop.itemList.innerHTML = "";
-        _shop.itemListType = "weapon";
+        _itemListType = "weapon";
         _shop.btnEquip.disabled = true;
 
         ITEM_LIST[_player.getType()]["weapon"].forEach(function(obj) {
