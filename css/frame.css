@@ -62,6 +62,9 @@
 }
 
 .energy-ball{
+    background-image: url(../img/super/energy_ball.png);
+    width: 384px;
+    height: 384px;
     opacity: 0.8;
 }
 
