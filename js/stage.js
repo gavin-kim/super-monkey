@@ -4,7 +4,7 @@ function Stage(iFace) {
 
     var self = this;
     var keyOn = [];
-    var gauge = [];
+    var _charge = 0;
     var types = ["normal", "patrol", "rush", "hold"];
     var enemyFactory = new EnemyFactory();
     var _interface = iFace;
@@ -62,7 +62,7 @@ function Stage(iFace) {
             missile.resume();
         });
 
-        // resume player's skill and charge skill
+        // resume player's skill and _charge skill
         player.getChargeSkill().resume();
         player.getSkill().resume();
 
@@ -75,25 +75,56 @@ function Stage(iFace) {
     };
 
     self.start = function() {
+
+        initEnemies(500);
         setKeyEvents();
         startTimers();
     };
 
     self.clear = function() {
+
         if (_pause) {
             removeKeyEvents();
         } else {
             self.pause();
             removeKeyEvents();
         }
+
+        enemies.forEach(function(enemy) {
+            enemy.die();
+        });
+        pMissiles.forEach(function(pm) {
+            pm.die();
+        });
+        eMissiles.forEach(function(em) {
+            em.die();
+        });
+        pExplosions.forEach(function(pe) {
+            pe.die();
+        });
+
+        _pause = false;
+        _charge = 0;
+        eMissiles = [];
+        pMissiles = [];
+        pExplosions = [];
+
+        player.clear();
+    };
+
+    self.getInterface = function() {
+        return _interface;
+    };
+
+    self.setInterface = function(iFace) {
+        _interface = iFace;
     };
 
     // interval invoke the function consistently to move smoothly
     var setKeyEvents = function() {
 
         // when key down event appears, set variable = true;
-        document.onkeydown = function(ev)
-        {
+        document.onkeydown = function(ev) {
             var keyCode = (window.event) ? event.keyCode : ev.keyCode;
             keyOn[keyCode] = true;
 
@@ -113,18 +144,16 @@ function Stage(iFace) {
         };
 
         // when key up event appears, set variable = false;
-        document.onkeyup = function(ev)
-        {
+        document.onkeyup = function(ev) {
             var keyCode = (window.event) ? event.keyCode : ev.keyCode;
             keyOn[keyCode] = false;
 
             // use gauge attack and reset
             switch (keyCode) {
                 case 74:
-                    if (gauge[74] > 1 && player.stopCharging() >= 30)
-                        player.useChargeSkill();
-
-                    gauge[74] = 0;
+                    if (_charge > 1)
+                        player.stopCharging();
+                    _charge = 0;
                     break;
             }
         };
@@ -149,15 +178,6 @@ function Stage(iFace) {
         document.onkeydown = null;
         document.onkeyup = null;
     };
-
-    self.getInterface = function() {
-        return _interface;
-    };
-
-    self.setInterface = function(iFace) {
-      _interface = iFace;
-    };
-
 
     var spawnEnemy = function() {
 
@@ -221,12 +241,12 @@ function Stage(iFace) {
 
             // key j
             if (keyOn[74]) {
-                if (gauge[74] == 0)
+                if (_charge == 0)
                     player.useWeapon();
-                else if (gauge[74] == 1) {
+                else if (_charge == 1) {
                     player.startCharging();
                 }
-                gauge[74]++;
+                _charge++;
             }
             // key k
             if (keyOn[75]) {
@@ -279,16 +299,22 @@ function Stage(iFace) {
 
             // enemy's missiles vs player
             eMissiles.forEach(function(em) {
-                if (em.isAlive() && em.isCollision(player)) {
+
+                // check player is immune, missile is alive and collision
+                if (!player.isImmune() && em.isAlive() && em.isCollision(player)) {
+
                     em.die();
 
                     player.setHp(player.getHp() - em.getPower());
+                    player.setImmune(true); // set immune for a while
 
-                    if (player.getHp() < 1)
+                    if (player.isAlive() && player.getHp() < 1) {
                         player.die();
+                        self.pause();
+                        gameover();
+                    }
                 }
             });
-
 
             // player vs enemies
             for (var i = 0; i < enemyIndex; i++) {
@@ -297,8 +323,11 @@ function Stage(iFace) {
 
                     player.setHp(player.getHp() - 2);
 
-                    if (player.getHp() < 1)
+                    if (player.isAlive() && player.getHp() < 1) {
                         player.die();
+                        self.pause();
+                        gameover();
+                    }
 
                 }
             }
@@ -307,6 +336,18 @@ function Stage(iFace) {
             checkCollision(); // loop
 
         }, DELAY.CHECK_COLLISION);
+    };
+
+    var gameover = function() {
+
+        _interface.showDialog("Game Over", [{
+
+            label: "OK",
+            event: function() {
+                self.clear();
+                _interface.getShop().show();
+            }
+        }]);
     };
 
     var removeDeadUnit= function() {
@@ -328,6 +369,7 @@ function Stage(iFace) {
     };
 
     var initEnemies = function(num) {
+        enemyIndex = 0;
         enemies = [];
         for (var i = 0; i < num; i++) {
             enemies.push(enemyFactory.createEnemy(types[Math.floor(Math.random() * 4)]));
@@ -335,10 +377,7 @@ function Stage(iFace) {
     };
 
     var init = function() {
-        gauge[74] = 0;
-        eMissiles = [];
-        pMissiles = [];
-        initEnemies(500);
+
         _interface.setStage(self);
     };
 

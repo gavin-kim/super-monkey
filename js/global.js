@@ -16,13 +16,15 @@ var PLAYER = {
     MAX_SP: 100,
     MAX_WEAPON_LV: 4,
     MAX_SKILL_LV: 4,
-    MAX_GAUGE: 25,         // charge skill 2500 ms
+    MAX_GAUGE: 25,       // charge skill 2500 ms
     DEFAULT_HP: 5,
-    DEFAULT_SP: 0,
+    DEFAULT_SP: 100,
     DEFAULT_WEAPON_LV: 1,
     DEFAULT_SKILL_LV: 1,
-    DEFAULT_MONEY: 100,
-    DEFAULT_SPEED: 5
+    DEFAULT_MONEY: 100000,
+    DEFAULT_SPEED: 5,
+    IMMUNE_COUNT: 5,      // 5 * 50 : 250ms
+    IMMUNE_TIMER_DELAY: 50
 
 };
 var DURATION = {
@@ -30,7 +32,7 @@ var DURATION = {
 };
 
 var DELAY = {
-    SPAWN_ENEMY: 2000,      // to spawn a new enemy
+    SPAWN_ENEMY: 1000,      // to spawn a new enemy
     CHECK_DEAD_UNIT: 5000,       // to check dead units
     CHECK_MOVE_KEY: 60,     // to check move keys
     CHECK_ACTION_KEY: 100,  // to check action keys
@@ -44,61 +46,61 @@ var DELAY = {
 
 var UPGRADE_COST = {
     "basic": {
-        1: 100,
+        1: 0,
         2: 500,
         3: 1000,
         4: 3000,
         5: 0
     },
     "bomb": {
-        1: 200,
-        2: 600,
-        3: 1500,
-        4: 4500,
+        1: 500,
+        2: 1000,
+        3: 2500,
+        4: 5000,
         5: 0
     },
     "launcher": {
-        1: 300,
-        2: 900,
-        3: 3000,
-        4: 9000,
+        1: 1000,
+        2: 2000,
+        3: 5000,
+        4: 10000,
         5: 0
     },
     // charge skills
     "laser": {
-        1: 100,
-        2: 500,
-        3: 1000,
+        1: 0,
+        2: 1000,
+        3: 2500,
         4: 5000,
         5: 0
     },
     "tornado": {
-        1: 100,
-        2: 500,
-        3: 1000,
+        1: 0,
+        2: 1000,
+        3: 2500,
         4: 5000,
         5: 0
     },
     // skills
     "blast": {
-        1: 100,
-        2: 500,
-        3: 1000,
-        4: 5000,
+        1: 0,
+        2: 2500,
+        3: 5000,
+        4: 10000,
         5: 0
     },
     "mirror-image": {
-        1: 100,
-        2: 500,
-        3: 1000,
-        4: 5000,
+        1: 2500,
+        2: 5000,
+        3: 10000,
+        4: 20000,
         5: 0
     },
     "energy-ball": {
-        1: 100,
-        2: 500,
-        3: 1000,
-        4: 5000,
+        1: 1000,
+        2: 2500,
+        3: 5000,
+        4: 10000,
         5: 0
     }
 };
