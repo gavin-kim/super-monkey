@@ -319,9 +319,10 @@ function Stage(iFace) {
             // player vs enemies
             for (var i = 0; i < enemyIndex; i++) {
 
-                if (enemies[i].isAlive() && enemies[i].isCollision(player)) {
+                if (!player.isImmune() && enemies[i].isAlive() && enemies[i].isCollision(player)) {
 
                     player.setHp(player.getHp() - 2);
+                    player.setImmune(true);
 
                     if (player.isAlive() && player.getHp() < 1) {
                         player.die();

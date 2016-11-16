@@ -1,5 +1,6 @@
 #stage {
     background-image: url(../img/background/stage.jpg);
+    font-family: 'Concert One', cursive;
     position: relative;
     overflow: hidden;
     margin: 0 auto;

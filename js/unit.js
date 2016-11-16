@@ -418,8 +418,10 @@ function Player(frame, x, y, type) {
 
         _immuneCounter = PLAYER.IMMUNE_COUNT;
         // run immune timer
-        if (isImmune)
+        if (isImmune) {
+            self.getDom().style.opacity = 0.6;
             runImmuneTimer();
+        }
         // clear immune timer
         else {
             clearTimeout(_immuneTimer);
@@ -435,6 +437,8 @@ function Player(frame, x, y, type) {
 
             if (_immuneCounter > 0)
                 runImmuneTimer();
+            else
+                self.getDom().style.opacity = 1;
 
         }, PLAYER.IMMUNE_TIMER_DELAY);
     };

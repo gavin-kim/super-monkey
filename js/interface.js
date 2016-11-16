@@ -10,9 +10,10 @@ function Interface() {
 
     var _loadingFrame = new Unit(LOADING, STAGE_WIDTH / 2, STAGE_HEIGHT / 2);
     var _loadingTimer; // loading animation interval
-    var _status;
-    var _menu;
-    var _dialog;
+    var _status;       // status DOMs
+    var _menu;         // menu DOMs
+    var _startInfo;    // start information DOMs
+    var _dialog;       // dialog DOMs
     var _dialogBtnContainer;
     var _fog;
     var _weaponIconClass;
@@ -68,6 +69,16 @@ function Interface() {
     self.hideMenu = function() {
         _menu.style.display = "none";
         _fog.style.display = "none";
+    };
+
+    self.showStartInfo = function() {
+        _fog.style.display = "block";
+        _startInfo.style.display = "flex";
+    };
+
+    self.hideStartInfo = function() {
+        _fog.style.display = "none";
+        _startInfo.style.display = "none";
     };
 
     self.showStatus = function() {
@@ -147,6 +158,9 @@ function Interface() {
         _status.money.innerHTML = money;
     };
 
+    self.setBtnStartEvent = function(event) {
+        document.querySelector("#btn-start").onclick = event;
+    };
 
     self.setBtnResumeEvent = function(event) {
         document.querySelector("#btn-resume").onclick =  event;
@@ -175,11 +189,13 @@ function Interface() {
         _dialog = document.querySelector("#dialog");
         _dialogBtnContainer = document.querySelector("#dialog-btn-container");
         _menu = document.querySelector("#menu");
+        _startInfo = document.querySelector("#start-info");
         _fog = document.querySelector("#fog");
 
 
         _dialog.style.display = "none";
         _menu.style.display = "none";
+        _startInfo.style.display = "none";
         _fog.style.display = "none";
 
     };

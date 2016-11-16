@@ -17,7 +17,7 @@ function Shop(iFace) {
     var setWeapon = function(weapon) {
 
         _player.setWeapon(weapon);
-        _shop.weaponIcon.classList = "";
+        _shop.weaponIcon.className = "";
         _shop.weaponIcon.classList.add(Interface.ICON_PREFIX + weapon.getName(), "icon-clickable");
         updateWeapon();
     };
@@ -26,7 +26,7 @@ function Shop(iFace) {
     var setChargeSkill = function(charge) {
 
         _player.setChargeSkill(charge);
-        _shop.chargeIcon.classList = "";
+        _shop.chargeIcon.className = "";
         _shop.chargeIcon.classList.add(Interface.ICON_PREFIX + charge.getName(), "icon-clickable");
         updateChargeSkill();
     };
@@ -36,7 +36,7 @@ function Shop(iFace) {
 
         console.log(skill);
         _player.setSkill(skill);
-        _shop.skillIcon.classList = "";
+        _shop.skillIcon.className = "";
         _shop.skillIcon.classList.add(Interface.ICON_PREFIX + skill.getName(), "icon-clickable");
         updateSkill();
     };
@@ -351,11 +351,10 @@ function Shop(iFace) {
                     event: function() {
                         _currentStep = 0;
                         self.hide();
-                        _interface.getStage().start();
-                        _interface.showStatus();
-
                         player = _player; // set player object
                         player.appendDom();
+                        _interface.showStatus();
+                        _interface.showStartInfo();
                     }
                 }, {
                     label: "No",
